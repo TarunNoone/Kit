@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "518082552751",
+    "firebase_url": "https://vackit-v1-1600528569641.firebaseio.com",
+    "project_id": "vackit-v1-1600528569641",
+    "storage_bucket": "vackit-v1-1600528569641.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:518082552751:android:5ce6ede3bae0ca4af9055a",
+        "android_client_info": {
+          "package_name": "com.taruninc.kit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "518082552751-e1njofrds255tl38cl32cjmtdtoisl13.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEmFJmSq14zUGz1olToMF1NQcGYDj7LGw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "518082552751-e1njofrds255tl38cl32cjmtdtoisl13.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
