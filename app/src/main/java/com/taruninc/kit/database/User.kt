@@ -14,8 +14,12 @@ import kotlinx.android.parcel.Parcelize
 data class User (
     @PrimaryKey(autoGenerate = true)
     val UUID: Int,
+    val userAadhar: String,
     var userFirstName: String,
     var userLastName: String,
+    val userGender: Boolean, //True = M, False = F
+    val userAge: Int,
+    val userPhoneNumber: String,
     var userTemperature: Float,
     val userQRInfo: String
 ): Parcelable

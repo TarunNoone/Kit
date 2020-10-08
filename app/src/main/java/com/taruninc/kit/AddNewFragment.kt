@@ -71,9 +71,14 @@ class AddNewFragment : Fragment() {
             val lastName = view.et_lastname.text.toString()
             val temperature = mAddUserViewModel.temperature
             val qrInfo = mAddUserViewModel.qrInfo
+            val aadharId = view.et_aadhar.text.toString()
+            val age = view.et_age.text.toString().toInt()
+            val phoneNum = view.et_phoneNum.text.toString()
+            val gender: Boolean = view.rb_M.isSelected
 
-            if(inputCheck(firstName, lastName, temperature, qrInfo)) {
-                val user = User(0, firstName, lastName, temperature, qrInfo)
+            if(inputCheck(aadharId, firstName, lastName, age, phoneNum, temperature, qrInfo)) {
+//                val user = User(0, firstName, lastName, temperature, qrInfo)
+                val user = User(0, aadharId, firstName, lastName, gender, age, phoneNum, temperature, qrInfo)
                 mUserViewModel.addNewUser(user)
 
                 Toast.makeText(requireContext(), "Data Added Successfully", Toast.LENGTH_SHORT).show()
@@ -88,8 +93,12 @@ class AddNewFragment : Fragment() {
         return view
     }
 
-    fun inputCheck(firstname: String, lastname: String, temp: Float, qrInfo: String): Boolean {
-        return (firstname != "" && lastname != "" && temp > 0 && qrInfo != "")
+    fun inputCheck(aadharId: String, firstName: String, lastName: String,
+                   age: Int, phoneNum:String,
+                   temperature: Float, qrInfo: String): Boolean {
+        return (aadharId != "" && firstName != "" && lastName != "" &&
+                age > 0 && phoneNum != "" &&
+                temperature > 0 && qrInfo != "")
 //        return !(TextUtils.isEmpty(firstname) && TextUtils.isEmpty(lastname) && (temp > 0))
     }
 

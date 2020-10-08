@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,22 +8,50 @@
     android:layout_height="match_parent"
     tools:context=".AddNewFragment">
 
+    <EditText
+        android:id="@+id/et_aadhar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Aadhar Number"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/et_lastname"
+        app:layout_constraintStart_toStartOf="@+id/et_firstname"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1234 5678 9012" />
 
     <EditText
         android:id="@+id/et_firstname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="First Name"
         android:inputType="textPersonName"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/et_lastname"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_aadhar"
         tools:text="Sherlock" />
+
+    <EditText
+        android:id="@+id/et_lastname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:hint="Last Name"
+        android:inputType="textPersonName"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_firstname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/et_firstname"
+        app:layout_constraintTop_toTopOf="@+id/et_firstname"
+        tools:text="Holmes" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_save"
@@ -35,21 +64,50 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <EditText
-        android:id="@+id/et_lastname"
-        android:layout_width="0dp"
+
+
+    <RadioGroup
+        android:id="@+id/rb_gender"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:ems="10"
-        android:hint="Last Name"
-        android:inputType="textPersonName"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_firstname"
-        tools:text="Holmes" />
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:padding="1dp"
+        app:layout_constraintStart_toStartOf="@+id/et_firstname"
+        app:layout_constraintTop_toBottomOf="@+id/et_lastname">
+
+        <RadioButton
+            android:id="@+id/rb_M"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="M"
+            android:textSize="18sp" />
+
+        <RadioButton
+            android:id="@+id/rb_F"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="F"
+            android:textSize="18sp" />
+
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/et_age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Age"
+        android:inputType="number"
+        android:minEms="7"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/rb_gender"
+        app:layout_constraintEnd_toEndOf="@+id/et_lastname"
+        app:layout_constraintTop_toTopOf="@+id/rb_gender"
+        tools:text="249" />
+
 
     <TextView
         android:id="@+id/tv_temp"
@@ -67,13 +125,13 @@
         android:id="@+id/btn_get_temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:text="Get Temp"
         android:textAllCaps="false"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_lastname" />
+        app:layout_constraintTop_toBottomOf="@+id/cb_heart" />
 
     <TextView
         android:id="@+id/textView2"
@@ -85,27 +143,100 @@
         app:layout_constraintStart_toEndOf="@+id/tv_temp"
         app:layout_constraintTop_toTopOf="@+id/tv_temp" />
 
+    <EditText
+        android:id="@+id/et_phoneNum"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/et_age"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="@+id/rb_gender"
+        app:layout_constraintTop_toBottomOf="@+id/et_age"
+        tools:text="9876543210" />
+
     <TextView
-        android:id="@+id/tv_qr_info"
+        android:id="@+id/tv_mh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="QR Info"
+        android:layout_marginTop="8dp"
+        android:text="Medical History"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/btn_get_temp"
-        app:layout_constraintStart_toStartOf="@+id/tv_temp"
-        app:layout_constraintTop_toBottomOf="@+id/btn_scan_qr" />
+        app:layout_constraintStart_toStartOf="@+id/et_phoneNum"
+        app:layout_constraintTop_toBottomOf="@+id/et_phoneNum" />
+
+    <CheckBox
+        android:id="@+id/cb_diabetes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Diabetes"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/cb_highbp"
+        app:layout_constraintStart_toStartOf="@+id/tv_mh"
+        app:layout_constraintTop_toBottomOf="@+id/tv_mh" />
+
+    <CheckBox
+        android:id="@+id/cb_highbp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="High Blood Pressure"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cb_diabetes"
+        app:layout_constraintEnd_toEndOf="@+id/et_phoneNum"
+        app:layout_constraintStart_toEndOf="@+id/cb_diabetes"
+        app:layout_constraintTop_toTopOf="@+id/cb_diabetes" />
+
+    <CheckBox
+        android:id="@+id/cb_asthama"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Asthama"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/cb_diabetes"
+        app:layout_constraintTop_toBottomOf="@+id/cb_diabetes" />
+
+    <CheckBox
+        android:id="@+id/cb_heart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Heart Disease"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/cb_asthama"
+        app:layout_constraintStart_toStartOf="@+id/cb_highbp"
+        app:layout_constraintTop_toTopOf="@+id/cb_asthama"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/btn_scan_qr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:text="Scan QR"
         android:textAllCaps="false"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/btn_get_temp"
         app:layout_constraintStart_toStartOf="@+id/tv_temp"
         app:layout_constraintTop_toBottomOf="@+id/btn_get_temp" />
+
+    <TextView
+        android:id="@+id/tv_qr_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:scrollHorizontally="false"
+        android:text="QR Info"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_scan_qr"
+        app:layout_constraintEnd_toEndOf="@+id/btn_get_temp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/btn_scan_qr"
+        app:layout_constraintTop_toTopOf="@+id/btn_scan_qr" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

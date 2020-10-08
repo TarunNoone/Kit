@@ -3,7 +3,6 @@ package com.taruninc.kit
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.*
 import androidx.fragment.app.Fragment
 import android.view.inputmethod.InputMethodManager
@@ -14,7 +13,17 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.taruninc.kit.database.User
 import com.taruninc.kit.database.UserViewModel
+import kotlinx.android.synthetic.main.fragment_add_new.*
 import kotlinx.android.synthetic.main.fragment_edit_user.view.*
+import kotlinx.android.synthetic.main.fragment_edit_user.view.btn_get_temp
+import kotlinx.android.synthetic.main.fragment_edit_user.view.et_aadhar
+import kotlinx.android.synthetic.main.fragment_edit_user.view.et_age
+import kotlinx.android.synthetic.main.fragment_edit_user.view.et_firstname
+import kotlinx.android.synthetic.main.fragment_edit_user.view.et_lastname
+import kotlinx.android.synthetic.main.fragment_edit_user.view.et_phoneNum
+import kotlinx.android.synthetic.main.fragment_edit_user.view.rb_M
+import kotlinx.android.synthetic.main.fragment_edit_user.view.tv_qr_info
+import kotlinx.android.synthetic.main.fragment_edit_user.view.tv_temp
 
 
 class EditUser : Fragment() {
@@ -76,9 +85,21 @@ class EditUser : Fragment() {
         mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         mAddUserViewModel = ViewModelProvider(this).get(AddNewViewModel::class.java)
 
+        view.et_aadhar.setText(args.currentUser.userAadhar)
         view.et_firstname.setText(args.currentUser.userFirstName)
         view.et_lastname.setText(args.currentUser.userLastName)
-        view.tv_qrinfo.text = "QR Info: " + args.currentUser.userQRInfo
+
+        if(args.currentUser.userGender) {
+            view.rb_gender2.check(R.id.rb_M)
+        } else {
+            view.rb_gender2.check(R.id.rb_F)
+        }
+
+        view.et_age.setText(args.currentUser.userAge.toString())
+        view.et_phoneNum.setText(args.currentUser.userPhoneNumber)
+
+        mAddUserViewModel.qrInfo = args.currentUser.userQRInfo
+        view.tv_qr_info.text = "QR Info: " + args.currentUser.userQRInfo
 
         mAddUserViewModel.temperature = args.currentUser.userTemperature
         view.tv_temp.text = mAddUserViewModel.temperature.toString()
@@ -90,13 +111,19 @@ class EditUser : Fragment() {
         }
 
         view.floating_edit.setOnClickListener {
-            val firstname = view.et_firstname.text.toString()
-            val lastname = view.et_lastname.text.toString()
+            val firstName = view.et_firstname.text.toString()
+            val lastName = view.et_lastname.text.toString()
             val temperature = mAddUserViewModel.temperature
+            val qrInfo = mAddUserViewModel.qrInfo
+            val aadharId = view.et_aadhar.text.toString()
+            val age = view.et_age.text.toString().toInt()
+            val phoneNum = view.et_phoneNum.text.toString()
+            val gender: Boolean = view.rb_M.isSelected
 
             // Validate input and update user
-            if(inputCheck(firstname, lastname, temperature)) {
-                val updatedUser = User(args.currentUser.UUID, firstname, lastname, temperature, args.currentUser.userQRInfo)
+            if(inputCheck(aadharId, firstName, lastName, age, phoneNum, temperature, qrInfo)) {
+//                val updatedUser = User(args.currentUser.UUID, firstname, lastname, temperature, args.currentUser.userQRInfo)
+                val updatedUser = User(args.currentUser.UUID, aadharId, firstName, lastName, gender, age, phoneNum, temperature, qrInfo)
                 mUserViewModel.updateUser(updatedUser)
                 Toast.makeText(requireContext(), "Updated Successfully", Toast.LENGTH_SHORT).show()
 
@@ -115,8 +142,12 @@ class EditUser : Fragment() {
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
-    fun inputCheck(firstname: String, lastname: String, temp: Float): Boolean {
-        return (firstname != "" && lastname != "" && temp > 0)
+    fun inputCheck(aadharId: String, firstName: String, lastName: String,
+                   age: Int, phoneNum:String,
+                   temperature: Float, qrInfo: String): Boolean {
+        return (aadharId != "" && firstName != "" && lastName != "" &&
+                age > 0 && phoneNum != "" &&
+                temperature > 0 && qrInfo != "")
 //        return !(TextUtils.isEmpty(firstname) && TextUtils.isEmpty(lastname) && (temp > 0))
     }
 
