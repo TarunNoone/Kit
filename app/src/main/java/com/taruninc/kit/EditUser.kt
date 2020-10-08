@@ -78,6 +78,7 @@ class EditUser : Fragment() {
 
         view.et_firstname.setText(args.currentUser.userFirstName)
         view.et_lastname.setText(args.currentUser.userLastName)
+        view.tv_qrinfo.text = "QR Info: " + args.currentUser.userQRInfo
 
         mAddUserViewModel.temperature = args.currentUser.userTemperature
         view.tv_temp.text = mAddUserViewModel.temperature.toString()
@@ -95,7 +96,7 @@ class EditUser : Fragment() {
 
             // Validate input and update user
             if(inputCheck(firstname, lastname, temperature)) {
-                val updatedUser = User(args.currentUser.UUID, firstname, lastname, temperature)
+                val updatedUser = User(args.currentUser.UUID, firstname, lastname, temperature, args.currentUser.userQRInfo)
                 mUserViewModel.updateUser(updatedUser)
                 Toast.makeText(requireContext(), "Updated Successfully", Toast.LENGTH_SHORT).show()
 
@@ -115,6 +116,8 @@ class EditUser : Fragment() {
     }
 
     fun inputCheck(firstname: String, lastname: String, temp: Float): Boolean {
-        return !(TextUtils.isEmpty(firstname) && TextUtils.isEmpty(lastname) && (temp > 0))
+        return (firstname != "" && lastname != "" && temp > 0)
+//        return !(TextUtils.isEmpty(firstname) && TextUtils.isEmpty(lastname) && (temp > 0))
     }
+
 }

@@ -16,5 +16,6 @@ data class User (
     val UUID: Int,
     var userFirstName: String,
     var userLastName: String,
-    var userTemperature: Float
+    var userTemperature: Float,
+    val userQRInfo: String
 ): Parcelable
