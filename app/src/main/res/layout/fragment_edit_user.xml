@@ -126,13 +126,13 @@
         android:id="@+id/btn_get_temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:text="Get Temp"
         android:textAllCaps="false"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cb_heart" />
+        app:layout_constraintTop_toBottomOf="@+id/et_medHist" />
 
     <TextView
         android:id="@+id/textView2"
@@ -160,65 +160,6 @@
         app:layout_constraintTop_toBottomOf="@+id/et_age"
         tools:text="9876543210" />
 
-    <TextView
-        android:id="@+id/tv_mh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Medical History"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/et_phoneNum"
-        app:layout_constraintTop_toBottomOf="@+id/et_phoneNum" />
-
-    <CheckBox
-        android:id="@+id/cb_diabetes"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Diabetes"
-        android:textSize="16sp"
-        android:enabled="false"
-        app:layout_constraintEnd_toStartOf="@+id/cb_highbp"
-        app:layout_constraintStart_toStartOf="@+id/tv_mh"
-        app:layout_constraintTop_toBottomOf="@+id/tv_mh" />
-
-    <CheckBox
-        android:id="@+id/cb_highbp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="High Blood Pressure"
-        android:textSize="16sp"
-        android:enabled="false"
-        app:layout_constraintBottom_toBottomOf="@+id/cb_diabetes"
-        app:layout_constraintEnd_toEndOf="@+id/et_phoneNum"
-        app:layout_constraintStart_toEndOf="@+id/cb_diabetes"
-        app:layout_constraintTop_toTopOf="@+id/cb_diabetes" />
-
-    <CheckBox
-        android:id="@+id/cb_asthama"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Asthama"
-        android:textSize="16sp"
-        android:enabled="false"
-        app:layout_constraintStart_toStartOf="@+id/cb_diabetes"
-        app:layout_constraintTop_toBottomOf="@+id/cb_diabetes" />
-
-    <CheckBox
-        android:id="@+id/cb_heart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Heart Disease"
-        android:textSize="16sp"
-        android:enabled="false"
-        app:layout_constraintBottom_toBottomOf="@+id/cb_asthama"
-        app:layout_constraintStart_toStartOf="@+id/cb_highbp"
-        app:layout_constraintTop_toTopOf="@+id/cb_asthama"
-        app:layout_constraintVertical_bias="0.0" />
-
     <Button
         android:id="@+id/btn_scan_qr"
         android:layout_width="wrap_content"
@@ -243,6 +184,19 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/btn_scan_qr"
         app:layout_constraintTop_toTopOf="@+id/btn_scan_qr" />
+
+    <EditText
+        android:id="@+id/et_medHist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="Medical History (if any)"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/et_phoneNum"
+        app:layout_constraintStart_toStartOf="@+id/et_phoneNum"
+        app:layout_constraintTop_toBottomOf="@+id/et_phoneNum"
+        tools:text="Ageing" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

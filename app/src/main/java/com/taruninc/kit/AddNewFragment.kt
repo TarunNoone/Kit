@@ -78,7 +78,9 @@ class AddNewFragment : Fragment() {
 
             if(inputCheck(aadharId, firstName, lastName, age, phoneNum, temperature, qrInfo)) {
 //                val user = User(0, firstName, lastName, temperature, qrInfo)
-                val user = User(0, aadharId, firstName, lastName, gender, age, phoneNum, temperature, qrInfo)
+                val user = User(0, aadharId, firstName, lastName,
+                    gender, age, phoneNum, temperature, qrInfo,
+                    view.et_medHist.text.toString())
                 mUserViewModel.addNewUser(user)
 
                 Toast.makeText(requireContext(), "Data Added Successfully", Toast.LENGTH_SHORT).show()

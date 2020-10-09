@@ -97,6 +97,7 @@ class EditUser : Fragment() {
 
         view.et_age.setText(args.currentUser.userAge.toString())
         view.et_phoneNum.setText(args.currentUser.userPhoneNumber)
+        view.et_medHist.setText(args.currentUser.userMedHist)
 
         mAddUserViewModel.qrInfo = args.currentUser.userQRInfo
         view.tv_qr_info.text = "QR Info: " + args.currentUser.userQRInfo
@@ -123,7 +124,11 @@ class EditUser : Fragment() {
             // Validate input and update user
             if(inputCheck(aadharId, firstName, lastName, age, phoneNum, temperature, qrInfo)) {
 //                val updatedUser = User(args.currentUser.UUID, firstname, lastname, temperature, args.currentUser.userQRInfo)
-                val updatedUser = User(args.currentUser.UUID, aadharId, firstName, lastName, gender, age, phoneNum, temperature, qrInfo)
+                val updatedUser = User(args.currentUser.UUID, aadharId,
+                    firstName, lastName,
+                    gender, age,
+                    phoneNum, temperature, qrInfo,
+                    view.et_medHist.text.toString())
                 mUserViewModel.updateUser(updatedUser)
                 Toast.makeText(requireContext(), "Updated Successfully", Toast.LENGTH_SHORT).show()
 

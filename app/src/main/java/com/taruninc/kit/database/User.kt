@@ -21,5 +21,6 @@ data class User (
     val userAge: Int,
     val userPhoneNumber: String,
     var userTemperature: Float,
-    val userQRInfo: String
+    val userQRInfo: String,
+    val userMedHist: String
 ): Parcelable
