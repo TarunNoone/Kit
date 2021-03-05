@@ -3,47 +3,121 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/listFragment">
+    app:startDestination="@id/selectTypeFragment">
+
     <fragment
-        android:id="@+id/listFragment"
-        android:name="com.taruninc.kit.ListFragment"
-        android:label="Kit List"
-        tools:layout="@layout/fragment_list">
+        android:id="@+id/loginFragment"
+        android:name="com.taruninc.kit.LoginFragment"
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_listFragment_to_addNewFragment"
-            app:destination="@id/addNewFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            android:id="@+id/action_loginFragment_to_phoneFragment"
+            app:destination="@id/phoneFragment" />
+        <argument
+            android:name="user_type"
+            app:argType="string"
+            android:defaultValue="Patient" />
         <action
-            android:id="@+id/action_listFragment_to_editUserFragment"
+            android:id="@+id/action_loginFragment_to_patientFragment"
+            app:destination="@id/patientFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/selectTypeFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_vaccinatorFragment"
+            app:destination="@id/vaccinatorFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/selectTypeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/phoneFragment"
+        android:name="com.taruninc.kit.PhoneFragment"
+        android:label="Sign In using Phone"
+        tools:layout="@layout/fragment_phone">
+        <action
+            android:id="@+id/action_phoneFragment_to_patientFragment"
+            app:destination="@id/patientFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/selectTypeFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_phoneFragment_to_vaccinatorFragment"
+            app:destination="@id/vaccinatorFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/selectTypeFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="user_type"
+            app:argType="string"
+            android:defaultValue="Patient" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectTypeFragment"
+        android:name="com.taruninc.kit.SelectTypeFragment"
+        android:label="Vaccination"
+        tools:layout="@layout/fragment_select_type">
+        <action
+            android:id="@+id/action_selectTypeFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_selectTypeFragment_to_vaccinatorFragment"
+            app:destination="@id/vaccinatorFragment"
+            app:popUpTo="@id/selectTypeFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_selectTypeFragment_to_patientFragment"
+            app:destination="@id/patientFragment"
+            app:popUpTo="@id/selectTypeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/patientFragment"
+        android:name="com.taruninc.kit.PatientFragment"
+        android:label="Search Patient"
+        tools:layout="@layout/fragment_patient">
+        <action
+            android:id="@+id/action_patientFragment_to_selectTypeFragment"
+            app:destination="@id/selectTypeFragment"
+            app:popUpTo="@id/patientFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_patientFragment_to_editUserFragment"
             app:destination="@id/editUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/vaccinatorFragment"
+        android:name="com.taruninc.kit.VaccinatorFragment"
+        android:label="Vaccination"
+        tools:layout="@layout/fragment_vaccinator">
+        <action
+            android:id="@+id/action_vaccinatorFragment_to_addNewFragment"
+            app:destination="@id/addNewFragment" />
+        <action
+            android:id="@+id/action_vaccinatorFragment_to_editUserFragment"
+            app:destination="@id/editUserFragment" />
+        <action
+            android:id="@+id/action_vaccinatorFragment_to_selectTypeFragment"
+            app:destination="@id/selectTypeFragment"
+            app:popUpTo="@id/vaccinatorFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/addNewFragment"
         android:name="com.taruninc.kit.AddNewFragment"
-        android:label="Register Kit"
-        tools:layout="@layout/fragment_add_new" >
-        <action
-            android:id="@+id/action_addNewFragment_to_sensorFragment"
-            app:destination="@id/sensorFragment" />
-    </fragment>
+        android:label="Add New Patient"
+        tools:layout="@layout/fragment_add_new" />
     <fragment
         android:id="@+id/editUserFragment"
-        android:name="com.taruninc.kit.EditUser"
-        android:label="Edit Kit"
-        tools:layout="@layout/fragment_edit_user" >
+        android:name="com.taruninc.kit.EditUserFragment"
+        android:label="Edit Patient Details"
+        tools:layout="@layout/fragment_edit_user">
         <argument
-            android:name="currentUser"
-            app:argType="com.taruninc.kit.database.User" />
-        <action
-            android:id="@+id/action_editUserFragment_to_sensorFragment"
-            app:destination="@id/sensorFragment" />
+            android:name="ref_path"
+            app:argType="string" />
+        <argument
+            android:name="user_info"
+            app:argType="com.taruninc.kit.User" />
     </fragment>
-    <fragment
-        android:id="@+id/sensorFragment"
-        android:name="com.taruninc.kit.SensorFragment"
-        android:label="Get Temperature"
-        tools:layout="@layout/fragment_sensor" />
 </navigation>

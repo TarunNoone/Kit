@@ -10,21 +10,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.taruninc.kit.database.User
-import com.taruninc.kit.database.UserViewModel
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_add_new.view.*
-import android.widget.TextView
 
 
 class AddNewFragment : Fragment() {
-
-    private lateinit var mUserViewModel: UserViewModel
     private lateinit var mAddUserViewModel: AddNewViewModel
-
     private lateinit var qrInfo1: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +36,6 @@ class AddNewFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_add_new, container, false)
 
         // Get the ViewModels for this activity
-        mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         mAddUserViewModel = ViewModelProvider(this).get(AddNewViewModel::class.java)
 
         qrInfo1 = view.tv_qr_info
@@ -77,14 +74,9 @@ class AddNewFragment : Fragment() {
             val gender: Boolean = view.rb_M.isSelected
 
             if(inputCheck(aadharId, firstName, lastName, age, phoneNum, temperature, qrInfo)) {
-//                val user = User(0, firstName, lastName, temperature, qrInfo)
-                val user = User(0, aadharId, firstName, lastName,
-                    gender, age, phoneNum, temperature, qrInfo,
+                saveInfoToDb(aadharId, firstName, lastName,
+                    age, gender, phoneNum, temperature, qrInfo,
                     view.et_medHist.text.toString())
-                mUserViewModel.addNewUser(user)
-
-                Toast.makeText(requireContext(), "Data Added Successfully", Toast.LENGTH_SHORT).show()
-
                 hideKeyboard(view)
                 findNavController().navigateUp()
             } else {
@@ -95,16 +87,17 @@ class AddNewFragment : Fragment() {
         return view
     }
 
-    fun inputCheck(aadharId: String, firstName: String, lastName: String,
-                   age: Int, phoneNum:String,
-                   temperature: Float, qrInfo: String): Boolean {
+    private fun inputCheck(
+        aadharId: String, firstName: String, lastName: String,
+        age: Int, phoneNum: String,
+        temperature: Float, qrInfo: String
+    ): Boolean {
         return (aadharId != "" && firstName != "" && lastName != "" &&
                 age > 0 && phoneNum != "" &&
                 temperature > 0 && qrInfo != "")
-//        return !(TextUtils.isEmpty(firstname) && TextUtils.isEmpty(lastname) && (temp > 0))
     }
 
-    fun hideKeyboard(view: View) {
+    private fun hideKeyboard(view: View) {
         val imm = activity?.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
@@ -117,11 +110,42 @@ class AddNewFragment : Fragment() {
                 if (contents != null) {
                     mAddUserViewModel.qrInfo = contents
                 }
-                qrInfo1.text = "QR Info: " + contents
+                qrInfo1.text = "QR Info: $contents"
             }
             if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(requireContext(), "QR Scan failed", Toast.LENGTH_SHORT).show()
             }
         }
     }
+
+    private fun saveInfoToDb(
+        aadharId: String, firstName: String, lastName: String,
+        age: Int, gender: Boolean, phoneNum: String,
+        temperature: Float, qrInfo: String, medHist: String
+    ) {
+        // Write a message to the database
+        val user = Firebase.auth.currentUser
+
+        user!!.getIdToken(false).addOnSuccessListener { result ->
+            val isVaccinator = (result.claims["isVaccinator"] == true)
+
+            if (isVaccinator) {
+                val database = Firebase.database
+//                val unixTime = (System.currentTimeMillis() / 1000).toString()
+                val newUser = User(
+                    firstName, lastName,
+                    gender, age, phoneNum, temperature, qrInfo,
+                    medHist
+                )
+
+                val ref = database.getReference("patients/$aadharId")
+                ref.setValue(newUser)
+
+                Toast.makeText(requireContext(), "New user added successfully", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
 }
